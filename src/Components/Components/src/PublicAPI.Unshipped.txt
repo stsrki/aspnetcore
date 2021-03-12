@@ -13,6 +13,8 @@ Microsoft.AspNetCore.Components.HotReload.HotReloadContext.HotReloadContext() ->
 Microsoft.AspNetCore.Components.HotReload.HotReloadContext.IsHotReloading.get -> bool
 Microsoft.AspNetCore.Components.HotReload.IReceiveHotReloadContext
 Microsoft.AspNetCore.Components.HotReload.IReceiveHotReloadContext.Receive(Microsoft.AspNetCore.Components.HotReload.HotReloadContext! context) -> void
+Microsoft.AspNetCore.Components.IErrorBoundary
+Microsoft.AspNetCore.Components.IErrorBoundary.HandleException(System.Exception! exception) -> void
 Microsoft.AspNetCore.Components.Lifetime.ComponentApplicationLifetime
 Microsoft.AspNetCore.Components.Lifetime.ComponentApplicationLifetime.ComponentApplicationLifetime(Microsoft.Extensions.Logging.ILogger<Microsoft.AspNetCore.Components.Lifetime.ComponentApplicationLifetime!>! logger) -> void
 Microsoft.AspNetCore.Components.Lifetime.ComponentApplicationLifetime.PersistStateAsync(Microsoft.AspNetCore.Components.Lifetime.IComponentApplicationStateStore! store, Microsoft.AspNetCore.Components.RenderTree.Renderer! renderer) -> System.Threading.Tasks.Task!
