@@ -12,7 +12,7 @@ RUN apt-get update \
     nodejs \
     git
 
-ARG gitBranch=main
+ARG gitBranch=prkrishn/aot-benchmark
 
 RUN git clone https://github.com/emscripten-core/emsdk.git \
     && cd emsdk \
