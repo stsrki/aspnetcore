@@ -60,7 +60,7 @@ namespace Wasm.Performance.Driver
             Console.WriteLine("Application started.");
 
             using var browser = await Selenium.CreateBrowser(default, captureBrowserMemory: isStressRun);
-            using var testApp = StartTestApp();
+            using var testApp = StartTestApp(isAOT: true);
             using var benchmarkReceiver = StartBenchmarkResultReceiver();
             var testAppUrl = GetListeningUrl(testApp);
             if (isStressRun)
@@ -261,15 +261,18 @@ namespace Wasm.Performance.Driver
             }
         }
 
-        static IHost StartTestApp()
+        static IHost StartTestApp(bool isAOT)
         {
+            var appBasePath = isAOT ?
+                Path.Combine(AppContext.BaseDirectory, "aot", "Wasm.Performance.TestApp.dll") :
+                Path.GetFullPath(typeof(Program).Assembly.GetCustomAttributes<AssemblyMetadataAttribute>();
+
             var args = new[]
             {
                 "--urls", "http://127.0.0.1:0",
-                "--applicationpath", typeof(TestApp.Program).Assembly.Location,
+                "--applicationpath", appBasePath,
 #if DEBUG
                 "--contentroot",
-                Path.GetFullPath(typeof(Program).Assembly.GetCustomAttributes<AssemblyMetadataAttribute>()
                     .First(f => f.Key == "TestAppLocatiion")
                     .Value)
 #endif

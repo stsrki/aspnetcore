@@ -14,6 +14,12 @@ RUN apt-get update \
 
 ARG gitBranch=main
 
+RUN git clone https://github.com/emscripten-core/emsdk.git \
+    && cd emsdk \
+    && ./emsdk install 2.0.12 \
+    && ./emsdk activate 2.0.12 \
+    && export EMSDK_PATH="$PWD/emsdk"
+
 WORKDIR /src
 ADD https://api.github.com/repos/dotnet/aspnetcore/git/ref/heads/${gitBranch} /aspnetcore.commit
 
@@ -24,6 +30,7 @@ RUN git init \
     && git remote add origin https://github.com/aspnet/aspnetcore
 
 RUN ./restore.sh
+RUN .dotnet/dotnet run -p ./src/Components/WebAssembly/BlazorManifest/acquire/dotnet-install-blazoraot.csproj
 RUN .dotnet/dotnet publish -c Release --no-restore -o /app ./src/Components/benchmarkapps/Wasm.Performance/Driver/Wasm.Performance.Driver.csproj
 RUN chmod +x /app/Wasm.Performance.Driver
 

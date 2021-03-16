@@ -31,7 +31,14 @@
         <_Parameter1>TestAppLocatiion</_Parameter1>
         <_Parameter2>$(MSBuildThisFileDirectory)..\TestApp\</_Parameter2>
       </AssemblyAttribute>
-  </ItemGroup>
+    </ItemGroup>
+  </Target>
+
+  <Target Name="PublishAOT" AfterTargets="Publish">
+    <MSBuild
+      Projects="..\TestApp\Wasm.Performance.TestApp.csproj"
+      Targets="Publish"
+      Properties="PublishDir=$(PublishDir)aot;RunAOTCompilation=true" />
   </Target>
 
 </Project>
