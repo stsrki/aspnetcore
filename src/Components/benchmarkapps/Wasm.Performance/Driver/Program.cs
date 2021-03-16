@@ -265,7 +265,7 @@ namespace Wasm.Performance.Driver
         {
             var appBasePath = isAOT ?
                 Path.Combine(AppContext.BaseDirectory, "aot", "Wasm.Performance.TestApp.dll") :
-                Path.GetFullPath(typeof(Program).Assembly.GetCustomAttributes<AssemblyMetadataAttribute>());
+                typeof(TestApp.Program).Assembly.Location;
 
             Console.WriteLine($"Running app at {appBasePath}.");
 
@@ -275,6 +275,7 @@ namespace Wasm.Performance.Driver
                 "--applicationpath", appBasePath,
 #if DEBUG
                 "--contentroot",
+                    Path.GetFullPath(typeof(Program).Assembly.GetCustomAttributes<AssemblyMetadataAttribute>()
                     .First(f => f.Key == "TestAppLocatiion")
                     .Value)
 #endif
